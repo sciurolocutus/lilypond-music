@@ -25,12 +25,16 @@ firstphrase = {
   \tripolet
 }
 secondphrase = {
-  \tuplet 3/1 { <f a c>4. a4. f4.}
+  \tuplet 3/2 {
+    <<
+      { <f a>4. }
+      { c'4\staccato a4\staccato f4\staccato }
+    >>
+  }
   <<
     { e4 eeses4 }
     \absolute { <f' ces''>2 }
   >>
-  r8
 }
 thirdphrase = {
   <<
@@ -41,7 +45,7 @@ thirdphrase = {
       midiInstrument = "flute"
     } {
       \new Voice {
-        r2 r8 g16 a g8\staccato r8
+        r2 \tuplet 3/2 { r4 g16 a16 g4.\staccato }
       }
     }
   >> \oneVoice
@@ -64,6 +68,8 @@ simplebassline = {
 
 bassparttwo = {
   c,4 c'4 a,4 a'4
+}
+basspartthree = {
   d,4 r4 des~\tuplet 3/2 { des8 r4 }
 }
 
@@ -73,9 +79,11 @@ bass = \relative c {
   %\piano
   \simplebassline
   \bassparttwo
+  \basspartthree
 
   \simplebassline
   \bassparttwo
+  r1
 }
 
 \score {
