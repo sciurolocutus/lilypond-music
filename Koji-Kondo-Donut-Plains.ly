@@ -52,20 +52,61 @@ kalimba = \relative c'' {
   \clef treble
   % Music follows here.
   \firstphrase
-  \noBreak
   \secondphrase
-  
   \firstphrase
-  \noBreak
   \thirdphrase
 }
 
+simplebassline = {
+  c4 c'4 a,4 a'4
+  d,4 d'4 g,,4 g'4
+}
+
+bassparttwo = {
+  c,4 c'4 a,4 a'4
+  d,4 r4 des~\tuplet 3/2 { des8 r4 }
+}
+
+bass = \relative c {
+  \global
+  \clef bass
+  %\piano
+  \simplebassline
+  \bassparttwo
+
+  \simplebassline
+  \bassparttwo
+}
+
 \score {
-  \new Staff \with {
-    instrumentName = "Kalimba"
-    midiInstrument = "kalimba"
-  } \kalimba
-  \layout { }
+  <<
+    \repeat unfold 2 {
+      s1 \noBreak s1 \noBreak
+      s1 \noBreak s1 \break
+    }
+
+    \new StaffGroup  = "StaffGroup_Mario" <<
+      \new Staff \with {
+          instrumentName = "Kalimba"
+          midiInstrument = "kalimba"
+        } \kalimba
+
+      \new Staff \with {
+        instrumentName = "Acoustic Bass"
+        midiInstrument = "acoustic bass"
+      } \bass
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff \RemoveEmptyStaves
+      \override VerticalAxisGroup.remove-first = ##t
+    }
+    indent = 20\mm
+    line-width = 180\mm
+    ragged-last = ##t
+
+  }
   \midi {
     \tempo 4=144
   }
